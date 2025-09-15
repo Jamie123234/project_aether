@@ -156,6 +156,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📧 Contact
 
-Jamie Abrahams - [GitHub Profile](https://github.com/your-username)
+Jamie Abrahams - [GitHub Profile](https://github.com/Jamie123234)
 
-Project Link: [https://github.com/your-username/project-aethers-eye](https://github.com/your-username/project-aethers-eye)
+Project Link: [https://github.com/your-username/project-aethers-eye](https://github.com/Jamie123234/project_aether)
