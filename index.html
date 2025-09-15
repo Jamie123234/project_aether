@@ -13,6 +13,10 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
@@ -186,10 +190,11 @@
         
         /* Phase Sections */
         .phase-section {
+            padding-top: 2rem; /* Added padding for sticky nav offset */
             margin-bottom: 4rem;
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.8s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
         .phase-section.visible {
@@ -250,7 +255,6 @@
             border-radius: 12px;
             padding: 2rem;
             transition: all 0.3s ease;
-            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
@@ -282,12 +286,14 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1rem;
+            cursor: pointer;
         }
         
         .task-title {
             font-size: 1.2rem;
             font-weight: 600;
             color: #ffffff;
+            margin-right: 1rem;
         }
         
         .task-status {
@@ -295,8 +301,25 @@
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: 500;
-            background: rgba(102, 126, 234, 0.2);
-            border: 1px solid rgba(102, 126, 234, 0.4);
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .task-status[data-status="not-started"] {
+            background: rgba(108, 117, 125, 0.2);
+            border: 1px solid rgba(108, 117, 125, 0.4);
+            color: #ced4da;
+        }
+        .task-status[data-status="in-progress"] {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            color: #ffc107;
+        }
+        .task-status[data-status="completed"] {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.4);
+            color: #28a745;
         }
         
         .task-description {
@@ -338,14 +361,32 @@
             border-radius: 6px;
             border-left: 3px solid #667eea;
         }
+
+        .complete-btn {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #28a745;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .complete-btn:hover {
+            background: rgba(40, 167, 69, 0.4);
+        }
         
         .expand-btn {
             background: none;
             border: none;
             color: #667eea;
             cursor: pointer;
-            font-size: 1.2rem;
             transition: transform 0.3s ease;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
         }
         
         .expand-btn.rotated {
@@ -363,11 +404,13 @@
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 1.5rem;
             cursor: pointer;
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
             z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .fab:hover {
@@ -412,9 +455,8 @@
     </nav>
     
     <div class="container">
-        <!-- Project Overview -->
         <section class="phase-section visible" id="overview">
-            <div class="project-overview">
+             <div class="project-overview">
                 <div class="overview-card">
                     <div class="card-title">🎯 Project Scope</div>
                     <p>Build an autonomous AI system that monitors astronomical time-lapse data, detects anomalies using deep learning, prioritizes discoveries, and provides real-time visualization dashboards.</p>
@@ -451,7 +493,6 @@
             </div>
         </section>
         
-        <!-- Phase 1 -->
         <section class="phase-section phase-1" id="phase-1">
             <div class="phase-header">
                 <div class="phase-emoji">⚙️</div>
@@ -466,11 +507,13 @@
             </div>
             
             <div class="tasks-grid">
-                <div class="task-card" onclick="toggleTaskDetails(this)">
+                <div class="task-card">
                     <div class="task-header">
                         <div class="task-title">Environment Setup</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
                     </div>
                     <div class="task-description">
                         Create a dedicated project folder and Python virtual environment with all necessary libraries.
@@ -490,14 +533,17 @@
                             <strong>Install Dependencies:</strong><br>
                             <code class="code-snippet">pip install tensorflow pytorch opencv-python pandas numpy matplotlib</code>
                         </div>
+                        <button class="complete-btn">Mark as Complete</button>
                     </div>
                 </div>
                 
-                <div class="task-card" onclick="toggleTaskDetails(this)">
+                 <div class="task-card">
                     <div class="task-header">
                         <div class="task-title">Source the Data</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
                     </div>
                     <div class="task-description">
                         Find and download high-resolution, long-duration time-lapse video of the night sky.
@@ -520,14 +566,17 @@
                             <strong>File Formats:</strong><br>
                             Preferred: <code class="code-snippet">.mp4</code>, <code class="code-snippet">.avi</code>, <code class="code-snippet">.mov</code>
                         </div>
+                        <button class="complete-btn">Mark as Complete</button>
                     </div>
                 </div>
                 
-                <div class="task-card" onclick="toggleTaskDetails(this)">
+                 <div class="task-card">
                     <div class="task-header">
                         <div class="task-title">Video-to-Frame Conversion</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
                     </div>
                     <div class="task-description">
                         Write a Python script using OpenCV to extract individual frames from your video file.
@@ -548,546 +597,162 @@
                             <strong>Expected Output:</strong><br>
                             Hundreds to thousands of sequential frame images ready for processing
                         </div>
+                        <button class="complete-btn">Mark as Complete</button>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Phase 2 -->
-        <section class="phase-section phase-2" id="phase-2">
-            <div class="phase-header">
-                <div class="phase-emoji">🤖</div>
-                <div>
-                    <div class="phase-title">Phase 2: The Sentinel</div>
-                    <div class="phase-subtitle">Anomaly Detection with TensorFlow</div>
-                </div>
-            </div>
-            
-            <div class="phase-description">
-                In this phase, you'll build the first part of the AI: a system that can spot changes in the sky.
-            </div>
-            
-            <div class="tasks-grid">
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Image Differencing Script</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Create a script that compares consecutive frames to highlight pixel changes and potential anomalies.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Core Algorithm:</strong><br>
-                            • Load consecutive frames<br>
-                            • Convert to grayscale<br>
-                            • Compute absolute difference<br>
-                            • Apply threshold to filter noise
-                        </div>
-                        <div class="detail-item">
-                            <strong>Key Functions:</strong><br>
-                            <code class="code-snippet">cv2.absdiff()</code> - Calculate differences<br>
-                            <code class="code-snippet">cv2.threshold()</code> - Filter noise<br>
-                            <code class="code-snippet">cv2.findContours()</code> - Detect objects
-                        </div>
-                        <div class="detail-item">
-                            <strong>Output:</strong><br>
-                            Binary masks highlighting areas of change between frames
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Create Training Dataset</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Manually classify detected changes into anomalies and noise to create training data.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Data Organization:</strong><br>
-                            <code class="code-snippet">data/training/anomaly/</code> - Real events<br>
-                            <code class="code-snippet">data/training/noise/</code> - False positives
-                        </div>
-                        <div class="detail-item">
-                            <strong>Classification Guidelines:</strong><br>
-                            <strong>Anomalies:</strong> Moving objects, satellites, meteors, aircraft<br>
-                            <strong>Noise:</strong> Sensor artifacts, cosmic rays, static noise
-                        </div>
-                        <div class="detail-item">
-                            <strong>Target Dataset Size:</strong><br>
-                            • 500+ anomaly examples<br>
-                            • 500+ noise examples<br>
-                            • Balanced distribution
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Train Anomaly Filter</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Build and train a CNN using TensorFlow to distinguish real anomalies from sensor noise.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Model Architecture:</strong><br>
-                            • Convolutional layers for feature extraction<br>
-                            • Pooling layers for dimensionality reduction<br>
-                            • Dense layers for classification<br>
-                            • Binary output (anomaly vs noise)
-                        </div>
-                        <div class="detail-item">
-                            <strong>Training Configuration:</strong><br>
-                            • Binary crossentropy loss<br>
-                            • Adam optimizer<br>
-                            • 80/20 train/validation split<br>
-                            • Early stopping to prevent overfitting
-                        </div>
-                        <div class="detail-item">
-                            <strong>Success Metrics:</strong><br>
-                            • >90% validation accuracy<br>
-                            • Low false positive rate<br>
-                            • Consistent performance across test data
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Phase 3 -->
-        <section class="phase-section phase-3" id="phase-3">
-            <div class="phase-header">
-                <div class="phase-emoji">✨</div>
-                <div>
-                    <div class="phase-title">Phase 3: The Cognitive Core</div>
-                    <div class="phase-subtitle">Prioritization with PyTorch</div>
-                </div>
-            </div>
-            
-            <div class="phase-description">
-                Now you'll build the "brain" that decides how important an anomaly is.
-            </div>
-            
-            <div class="tasks-grid">
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Feature Extraction</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Extract quantitative features from detected anomalies for priority scoring.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Key Features to Extract:</strong><br>
-                            • Brightness/intensity<br>
-                            • Object size (area, perimeter)<br>
-                            • Velocity (pixels per frame)<br>
-                            • Direction of movement<br>
-                            • Shape characteristics
-                        </div>
-                        <div class="detail-item">
-                            <strong>OpenCV Functions:</strong><br>
-                            <code class="code-snippet">cv2.moments()</code> - Centroid calculation<br>
-                            <code class="code-snippet">cv2.contourArea()</code> - Size measurement<br>
-                            <code class="code-snippet">cv2.boundingRect()</code> - Bounding box
-                        </div>
-                        <div class="detail-item">
-                            <strong>Tracking Algorithm:</strong><br>
-                            Track objects across multiple frames to calculate velocity and trajectory
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Store Features</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Organize extracted features into structured data format for machine learning.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>DataFrame Structure:</strong><br>
-                            • frame_number<br>
-                            • x_coordinate, y_coordinate<br>
-                            • brightness, size, velocity<br>
-                            • direction, shape_features<br>
-                            • priority_label (for training)
-                        </div>
-                        <div class="detail-item">
-                            <strong>Data Preprocessing:</strong><br>
-                            • Normalize feature values<br>
-                            • Handle missing values<br>
-                            • Feature scaling for neural network input
-                        </div>
-                        <div class="detail-item">
-                            <strong>Export Format:</strong><br>
-                            <code class="code-snippet">features.csv</code> or <code class="code-snippet">features.pkl</code>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Train Prioritization Model</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Build a PyTorch neural network that assigns priority scores (0.0 to 1.0) to anomalies.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Priority Guidelines:</strong><br>
-                            • Fast, bright objects: High priority (0.8-1.0)<br>
-                            • Medium movement: Medium priority (0.4-0.7)<br>
-                            • Slow, dim objects: Low priority (0.0-0.3)
-                        </div>
-                        <div class="detail-item">
-                            <strong>Network Architecture:</strong><br>
-                            • Input layer: Feature vector<br>
-                            • Hidden layers: 2-3 fully connected layers<br>
-                            • Output layer: Single neuron with sigmoid activation<br>
-                            • Dropout layers for regularization
-                        </div>
-                        <div class="detail-item">
-                            <strong>Training Setup:</strong><br>
-                            • MSE loss for regression<br>
-                            • Adam optimizer<br>
-                            • Learning rate scheduling<br>
-                            • Cross-validation for robustness
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Phase 4 -->
-        <section class="phase-section phase-4" id="phase-4">
-            <div class="phase-header">
-                <div class="phase-emoji">🛰️</div>
-                <div>
-                    <div class="phase-title">Phase 4: Integration and Real-Time Simulation</div>
-                    <div class="phase-subtitle">Bringing It All Together</div>
-                </div>
-            </div>
-            
-            <div class="phase-description">
-                This is where you assemble all the components into a single, running application.
-            </div>
-            
-            <div class="tasks-grid">
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Build the Main Loop</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Create a master Python script that simulates real-time processing by reading frames sequentially.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Main Loop Structure:</strong><br>
-                            • Frame iterator with timing simulation<br>
-                            • Buffer management for consecutive frames<br>
-                            • Error handling and logging<br>
-                            • Performance monitoring
-                        </div>
-                        <div class="detail-item">
-                            <strong>Processing Pipeline:</strong><br>
-                            • Load frame → Preprocess → Detect changes → Classify → Extract features → Prioritize → Log results
-                        </div>
-                        <div class="detail-item">
-                            <strong>Configuration:</strong><br>
-                            • Adjustable processing speed<br>
-                            • Configurable thresholds<br>
-                            • Model loading and caching
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Chain the Models</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Integrate all AI components into a seamless processing pipeline.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Model Integration Steps:</strong><br>
-                            a. Image differencing (OpenCV)<br>
-                            b. Anomaly classification (TensorFlow)<br>
-                            c. Feature extraction (OpenCV)<br>
-                            d. Priority scoring (PyTorch)<br>
-                            e. Results logging (Pandas)
-                        </div>
-                        <div class="detail-item">
-                            <strong>Data Flow Management:</strong><br>
-                            • Efficient memory usage<br>
-                            • Batch processing optimization<br>
-                            • GPU acceleration where applicable
-                        </div>
-                        <div class="detail-item">
-                            <strong>Error Handling:</strong><br>
-                            • Graceful model loading failures<br>
-                            • Frame processing errors<br>
-                            • Recovery mechanisms
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Simulate Telescope Tasking</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Implement alert system that triggers when high-priority anomalies are detected.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Alert Thresholds:</strong><br>
-                            • Critical: Priority > 0.9<br>
-                            • High: Priority > 0.7<br>
-                            • Medium: Priority > 0.5<br>
-                            • Low: Priority > 0.3
-                        </div>
-                        <div class="detail-item">
-                            <strong>Alert Actions:</strong><br>
-                            • Console notifications<br>
-                            • Log file entries<br>
-                            • Email notifications (optional)<br>
-                            • Screenshot capture
-                        </div>
-                        <div class="detail-item">
-                            <strong>Telescope Commands:</strong><br>
-                            <code class="code-snippet">HIGH PRIORITY ALERT: Tasking telescope for follow-up on anomaly at (x,y)</code>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Phase 5 -->
-        <section class="phase-section phase-5" id="phase-5">
-            <div class="phase-header">
-                <div class="phase-emoji">📊</div>
-                <div>
-                    <div class="phase-title">Phase 5: Visualization Dashboard</div>
-                    <div class="phase-subtitle">Mission Control Interface</div>
-                </div>
-            </div>
-            
-            <div class="phase-description">
-                The final phase is creating a visual interface to monitor your AI system in real-time.
-            </div>
-            
-            <div class="tasks-grid">
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Create Dashboard Script</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Build the foundation for a real-time monitoring dashboard using Matplotlib or Plotly.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Technology Options:</strong><br>
-                            • <strong>Matplotlib:</strong> Static plots, good for basic visualization<br>
-                            • <strong>Plotly Dash:</strong> Interactive web dashboard<br>
-                            • <strong>Streamlit:</strong> Rapid prototyping, easy deployment
-                        </div>
-                        <div class="detail-item">
-                            <strong>Data Sources:</strong><br>
-                            • Live log files from main processing loop<br>
-                            • Historical anomaly database<br>
-                            • System performance metrics
-                        </div>
-                        <div class="detail-item">
-                            <strong>Update Mechanisms:</strong><br>
-                            • Real-time data polling<br>
-                            • Automatic refresh intervals<br>
-                            • Manual refresh controls
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="task-card" onclick="toggleTaskDetails(this)">
-                    <div class="task-header">
-                        <div class="task-title">Develop the Visuals</div>
-                        <div class="task-status">Not Started</div>
-                        <button class="expand-btn">▼</button>
-                    </div>
-                    <div class="task-description">
-                        Create comprehensive visualization components for monitoring and analysis.
-                    </div>
-                    <div class="task-details">
-                        <div class="detail-item">
-                            <strong>Current Frame Display:</strong><br>
-                            • Live frame with detected anomalies circled<br>
-                            • Priority score labels and color coding<br>
-                            • Zoom and pan functionality<br>
-                            • Overlay controls for different detection layers
-                        </div>
-                        <div class="detail-item">
-                            <strong>High-Priority Events Table:</strong><br>
-                            • Timestamp, coordinates, priority score<br>
-                            • Sortable and filterable columns<br>
-                            • Click-to-view detailed information<br>
-                            • Export capabilities
-                        </div>
-                        <div class="detail-item">
-                            <strong>Analytics Charts:</strong><br>
-                            • Time series: Anomalies detected over time<br>
-                            • Histogram: Priority score distribution<br>
-                            • Heatmap: Spatial distribution of anomalies<br>
-                            • Performance metrics: Processing speed, accuracy
-                        </div>
-                        <div class="detail-item">
-                            <strong>Control Panel:</strong><br>
-                            • Start/stop processing<br>
-                            • Adjust detection thresholds<br>
-                            • Model performance statistics<br>
-                            • System health indicators
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+        </div>
     
-    <!-- Floating Action Button -->
-    <button class="fab" onclick="scrollToTop()" title="Back to Top">↑</button>
+    <button class="fab" id="fab" aria-label="Scroll to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+    </button>
     
     <script>
-        // Generate animated stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const numStars = 100;
+        document.addEventListener('DOMContentLoaded', () => {
             
-            for (let i = 0; i < numStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
+            // --- INITIALIZATION ---
+            createStars();
+            setupNavigation();
+            setupTaskCards();
+            setupScrollAnimations();
+            setupFab();
+            updateProgress();
+
+            // --- FUNCTIONS ---
+
+            // Generate animated stars
+            function createStars() {
+                const starsContainer = document.getElementById('stars');
+                if (!starsContainer) return;
+                const numStars = 100;
+                const fragment = document.createDocumentFragment();
+                for (let i = 0; i < numStars; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 3}s`;
+                    fragment.appendChild(star);
+                }
+                starsContainer.appendChild(fragment);
             }
-        }
-        
-        // Navigation functionality
-        function setupNavigation() {
-            const navItems = document.querySelectorAll('.nav-item');
-            const sections = document.querySelectorAll('.phase-section');
-            
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const targetId = item.dataset.phase;
-                    
-                    // Update active nav item
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    item.classList.add('active');
-                    
-                    // Show target section
-                    sections.forEach(section => {
-                        section.classList.remove('visible');
-                        if (section.id === targetId) {
-                            section.classList.add('visible');
-                            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Navigation functionality
+            function setupNavigation() {
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const targetId = item.dataset.phase;
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            navItems.forEach(nav => nav.classList.remove('active'));
+                            item.classList.add('active');
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
                     });
                 });
-            });
-        }
-        
-        // Task details toggle
-        function toggleTaskDetails(taskCard) {
-            const details = taskCard.querySelector('.task-details');
-            const btn = taskCard.querySelector('.expand-btn');
-            const status = taskCard.querySelector('.task-status');
-            
-            details.classList.toggle('expanded');
-            btn.classList.toggle('rotated');
-            
-            // Update status when expanded (simulate progress)
-            if (details.classList.contains('expanded') && status.textContent === 'Not Started') {
-                status.textContent = 'In Progress';
-                status.style.background = 'rgba(255, 193, 7, 0.2)';
-                status.style.borderColor = 'rgba(255, 193, 7, 0.4)';
-                updateProgress();
             }
-        }
-        
-        // Update overall progress
-        function updateProgress() {
-            const allTasks = document.querySelectorAll('.task-status');
-            const inProgress = Array.from(allTasks).filter(task => 
-                task.textContent === 'In Progress' || task.textContent === 'Completed'
-            ).length;
-            
-            const progressPercentage = (inProgress / allTasks.length) * 100;
-            const progressBar = document.getElementById('overall-progress');
-            progressBar.style.width = progressPercentage + '%';
-        }
-        
-        // Scroll to top
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // Intersection Observer for scroll animations
-        function setupScrollAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+
+            // Task card expand/collapse and status updates
+            function setupTaskCards() {
+                const taskCards = document.querySelectorAll('.task-card');
+                taskCards.forEach(card => {
+                    const header = card.querySelector('.task-header');
+                    const completeBtn = card.querySelector('.complete-btn');
+
+                    if (header) {
+                        header.addEventListener('click', () => toggleTaskDetails(card));
+                    }
+                    if (completeBtn) {
+                        completeBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            updateTaskStatus(card, 'completed');
+                        });
                     }
                 });
-            }, {
-                threshold: 0.1,
-                rootMargin: '50px'
-            });
+            }
+
+            function toggleTaskDetails(taskCard) {
+                const details = taskCard.querySelector('.task-details');
+                const btn = taskCard.querySelector('.expand-btn');
+                
+                if (!details || !btn) return;
+
+                const isExpanded = details.classList.toggle('expanded');
+                btn.classList.toggle('rotated', isExpanded);
+
+                const currentStatus = taskCard.querySelector('.task-status').dataset.status;
+                if (isExpanded && currentStatus === 'not-started') {
+                    updateTaskStatus(taskCard, 'in-progress');
+                }
+            }
+
+            function updateTaskStatus(taskCard, newStatus) {
+                const statusEl = taskCard.querySelector('.task-status');
+                if (statusEl.dataset.status === newStatus) return; // No change
+
+                statusEl.dataset.status = newStatus;
+                
+                const statusMap = {
+                    'not-started': 'Not Started',
+                    'in-progress': 'In Progress',
+                    'completed': 'Completed'
+                };
+                statusEl.textContent = statusMap[newStatus];
+
+                updateProgress();
+            }
+
+            // Update overall progress bar
+            function updateProgress() {
+                const allTasks = document.querySelectorAll('.task-status');
+                if (allTasks.length === 0) return;
+
+                const completedTasks = Array.from(allTasks).filter(task => task.dataset.status === 'completed').length;
+                const progressPercentage = (completedTasks / allTasks.length) * 100;
+                
+                const progressBar = document.getElementById('overall-progress');
+                if (progressBar) {
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+            }
             
-            document.querySelectorAll('.phase-section:not(#overview)').forEach(section => {
-                observer.observe(section);
-            });
-        }
-        
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            setupNavigation();
-            setupScrollAnimations();
-        });
-        
-        // Add keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            const navItems = document.querySelectorAll('.nav-item');
-            const activeIndex = Array.from(navItems).findIndex(item => item.classList.contains('active'));
-            
-            if (e.key === 'ArrowLeft' && activeIndex > 0) {
-                navItems[activeIndex - 1].click();
-            } else if (e.key === 'ArrowRight' && activeIndex < navItems.length - 1) {
-                navItems[activeIndex + 1].click();
+            // Scroll-to-top button
+            function setupFab() {
+                const fab = document.getElementById('fab');
+                if (fab) {
+                    fab.addEventListener('click', () => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            }
+
+            // Intersection Observer for scroll animations
+            function setupScrollAnimations() {
+                const sections = document.querySelectorAll('.phase-section');
+                const navItems = document.querySelectorAll('.nav-item');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            
+                            // Update active nav item on scroll
+                            const activeId = entry.target.id;
+                            navItems.forEach(item => {
+                                item.classList.toggle('active', item.dataset.phase === activeId);
+                            });
+                        }
+                    });
+                }, {
+                    threshold: 0.2, // Section is 20% visible
+                    rootMargin: '-50px 0px -50px 0px' // Adjust trigger area
+                });
+                
+                sections.forEach(section => observer.observe(section));
             }
         });
     </script>
