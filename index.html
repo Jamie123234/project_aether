@@ -507,7 +507,7 @@
             </div>
             
             <div class="tasks-grid">
-                <div class="task-card">
+                <div class="task-card" data-task-id="p1-env-setup">
                     <div class="task-header">
                         <div class="task-title">Environment Setup</div>
                         <div class="task-status" data-status="not-started">Not Started</div>
@@ -537,7 +537,7 @@
                     </div>
                 </div>
                 
-                 <div class="task-card">
+                 <div class="task-card" data-task-id="p1-source-data">
                     <div class="task-header">
                         <div class="task-title">Source the Data</div>
                         <div class="task-status" data-status="not-started">Not Started</div>
@@ -570,7 +570,7 @@
                     </div>
                 </div>
                 
-                 <div class="task-card">
+                 <div class="task-card" data-task-id="p1-frame-conversion">
                     <div class="task-header">
                         <div class="task-title">Video-to-Frame Conversion</div>
                         <div class="task-status" data-status="not-started">Not Started</div>
@@ -603,7 +603,321 @@
             </div>
         </section>
         
-        </div>
+        <section class="phase-section phase-2" id="phase-2">
+             <div class="phase-header">
+                <div class="phase-emoji">🤖</div>
+                <div>
+                    <div class="phase-title">Phase 2: The Sentinel</div>
+                    <div class="phase-subtitle">Anomaly Detection with TensorFlow</div>
+                </div>
+            </div>
+            
+            <div class="phase-description">
+                In this phase, you'll build the first part of the AI: a system that can spot changes in the sky.
+            </div>
+            
+            <div class="tasks-grid">
+                <div class="task-card" data-task-id="p2-diff-script">
+                    <div class="task-header">
+                        <div class="task-title">Image Differencing Script</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Create a script that compares consecutive frames to highlight pixel changes and potential anomalies.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Core Algorithm:</strong><br>
+                            • Load consecutive frames<br>
+                            • Convert to grayscale<br>
+                            • Compute absolute difference<br>
+                            • Apply threshold to filter noise
+                        </div>
+                        <div class="detail-item">
+                            <strong>Key Functions:</strong><br>
+                            <code class="code-snippet">cv2.absdiff()</code> - Calculate differences<br>
+                            <code class="code-snippet">cv2.threshold()</code> - Filter noise<br>
+                            <code class="code-snippet">cv2.findContours()</code> - Detect objects
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+                
+                <div class="task-card" data-task-id="p2-create-dataset">
+                    <div class="task-header">
+                        <div class="task-title">Create Training Dataset</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Manually classify detected changes into anomalies and noise to create training data.
+                    </div>
+                    <div class="task-details">
+                         <div class="detail-item">
+                            <strong>Data Organization:</strong><br>
+                            <code class="code-snippet">data/training/anomaly/</code> - Real events<br>
+                            <code class="code-snippet">data/training/noise/</code> - False positives
+                        </div>
+                        <div class="detail-item">
+                            <strong>Target Dataset Size:</strong><br>
+                            • 500+ anomaly examples<br>
+                            • 500+ noise examples
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+                
+                <div class="task-card" data-task-id="p2-train-filter">
+                    <div class="task-header">
+                        <div class="task-title">Train Anomaly Filter</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Build and train a CNN using TensorFlow to distinguish real anomalies from sensor noise.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Model Architecture:</strong><br>
+                            • Convolutional layers for feature extraction<br>
+                            • Pooling layers for dimensionality reduction<br>
+                            • Dense layers for classification
+                        </div>
+                        <div class="detail-item">
+                            <strong>Success Metrics:</strong><br>
+                            • >90% validation accuracy<br>
+                            • Low false positive rate
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="phase-section phase-3" id="phase-3">
+             <div class="phase-header">
+                <div class="phase-emoji">✨</div>
+                <div>
+                    <div class="phase-title">Phase 3: The Cognitive Core</div>
+                    <div class="phase-subtitle">Prioritization with PyTorch</div>
+                </div>
+            </div>
+            
+            <div class="phase-description">
+                Now you'll build the "brain" that decides how important an anomaly is.
+            </div>
+            
+            <div class="tasks-grid">
+                <div class="task-card" data-task-id="p3-feature-extraction">
+                    <div class="task-header">
+                        <div class="task-title">Feature Extraction</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Extract quantitative features from detected anomalies for priority scoring.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Key Features to Extract:</strong><br>
+                            • Brightness/intensity<br>
+                            • Object size (area, perimeter)<br>
+                            • Velocity (pixels per frame)<br>
+                            • Direction of movement
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task-id="p3-store-features">
+                    <div class="task-header">
+                        <div class="task-title">Store Features</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Organize extracted features into structured data format for machine learning.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Data Structure:</strong> Use a Pandas DataFrame.<br>
+                            <strong>Preprocessing:</strong> Normalize feature values.<br>
+                            <strong>Export Format:</strong> <code class="code-snippet">features.csv</code>
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task-id="p3-train-priority-model">
+                    <div class="task-header">
+                        <div class="task-title">Train Prioritization Model</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Build a PyTorch neural network that assigns priority scores (0.0 to 1.0) to anomalies.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Network Architecture:</strong><br>
+                            • Input layer: Feature vector<br>
+                            • Hidden layers: 2-3 fully connected layers<br>
+                            • Output layer: Single neuron with sigmoid activation
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="phase-section phase-4" id="phase-4">
+            <div class="phase-header">
+                <div class="phase-emoji">🛰️</div>
+                <div>
+                    <div class="phase-title">Phase 4: Integration and Real-Time Simulation</div>
+                    <div class="phase-subtitle">Bringing It All Together</div>
+                </div>
+            </div>
+            
+            <div class="phase-description">
+                This is where you assemble all the components into a single, running application.
+            </div>
+            
+            <div class="tasks-grid">
+                <div class="task-card" data-task-id="p4-build-loop">
+                    <div class="task-header">
+                        <div class="task-title">Build the Main Loop</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Create a master Python script that simulates real-time processing by reading frames sequentially.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Processing Pipeline:</strong><br>
+                            Load frame → Preprocess → Detect changes → Classify → Extract features → Prioritize → Log results
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task-id="p4-chain-models">
+                    <div class="task-header">
+                        <div class="task-title">Chain the Models</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Integrate all AI components into a seamless processing pipeline.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Data Flow Management:</strong> Ensure outputs from one model are correctly formatted as inputs for the next.
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task-id="p4-simulate-tasking">
+                    <div class="task-header">
+                        <div class="task-title">Simulate Telescope Tasking</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Implement alert system that triggers when high-priority anomalies are detected.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Alert Thresholds:</strong> Set a priority score threshold (e.g., > 0.9) to trigger an alert.
+                        </div>
+                         <div class="detail-item">
+                            <strong>Alert Action:</strong> Print a message to the console, e.g., <code class="code-snippet">HIGH PRIORITY ALERT: Tasking telescope...</code>
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="phase-section phase-5" id="phase-5">
+            <div class="phase-header">
+                <div class="phase-emoji">📊</div>
+                <div>
+                    <div class="phase-title">Phase 5: Visualization Dashboard</div>
+                    <div class="phase-subtitle">Mission Control Interface</div>
+                </div>
+            </div>
+            
+            <div class="phase-description">
+                The final phase is creating a visual interface to monitor your AI system in real-time.
+            </div>
+            
+            <div class="tasks-grid">
+                <div class="task-card" data-task-id="p5-dashboard-script">
+                    <div class="task-header">
+                        <div class="task-title">Create Dashboard Script</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Build the foundation for a real-time monitoring dashboard using Matplotlib or Plotly.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Technology Options:</strong><br>
+                            • <strong>Matplotlib:</strong> Static plots, good for basic visualization<br>
+                            • <strong>Plotly Dash:</strong> Interactive web dashboard
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task-id="p5-develop-visuals">
+                    <div class="task-header">
+                        <div class="task-title">Develop the Visuals</div>
+                        <div class="task-status" data-status="not-started">Not Started</div>
+                        <button class="expand-btn" aria-label="Toggle Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="task-description">
+                        Create comprehensive visualization components for monitoring and analysis.
+                    </div>
+                    <div class="task-details">
+                        <div class="detail-item">
+                            <strong>Current Frame Display:</strong> Live frame with detected anomalies circled.<br>
+                            <strong>High-Priority Events Table:</strong> Timestamp, coordinates, priority score.<br>
+                            <strong>Analytics Charts:</strong> Anomalies over time, priority score distribution.
+                        </div>
+                        <button class="complete-btn">Mark as Complete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
     
     <button class="fab" id="fab" aria-label="Scroll to Top" title="Back to Top">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
@@ -618,11 +932,44 @@
             setupTaskCards();
             setupScrollAnimations();
             setupFab();
-            updateProgress();
+            loadProgress(); // Load progress when the page loads
 
-            // --- FUNCTIONS ---
+            // --- SAVE and LOAD FUNCTIONS ---
 
-            // Generate animated stars
+            /**
+             * Gathers the status of all tasks and saves it to localStorage.
+             */
+            function saveProgress() {
+                const tasks = document.querySelectorAll('.task-card');
+                const progressData = [];
+                tasks.forEach(task => {
+                    progressData.push({
+                        id: task.dataset.taskId,
+                        status: task.querySelector('.task-status').dataset.status
+                    });
+                });
+                localStorage.setItem('aetherEyeProgress', JSON.stringify(progressData));
+            }
+
+            /**
+             * Loads progress from localStorage and updates the UI.
+             */
+            function loadProgress() {
+                const savedProgress = JSON.parse(localStorage.getItem('aetherEyeProgress'));
+                if (savedProgress) {
+                    savedProgress.forEach(taskData => {
+                        const taskCard = document.querySelector(`.task-card[data-task-id="${taskData.id}"]`);
+                        if (taskCard) {
+                            updateTaskStatus(taskCard, taskData.status, false); // Update UI without re-saving
+                        }
+                    });
+                }
+                updateProgress(); // Update the main progress bar after loading all statuses
+            }
+
+
+            // --- CORE UI FUNCTIONS ---
+
             function createStars() {
                 const starsContainer = document.getElementById('stars');
                 if (!starsContainer) return;
@@ -639,7 +986,6 @@
                 starsContainer.appendChild(fragment);
             }
 
-            // Navigation functionality
             function setupNavigation() {
                 const navItems = document.querySelectorAll('.nav-item');
                 navItems.forEach(item => {
@@ -648,15 +994,16 @@
                         const targetElement = document.getElementById(targetId);
                         
                         if (targetElement) {
-                            navItems.forEach(nav => nav.classList.remove('active'));
-                            item.classList.add('active');
-                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            // The scrollIntoView is handled by the IntersectionObserver for a smoother animation
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80, // Adjust offset for sticky nav
+                                behavior: 'smooth'
+                            });
                         }
                     });
                 });
             }
 
-            // Task card expand/collapse and status updates
             function setupTaskCards() {
                 const taskCards = document.querySelectorAll('.task-card');
                 taskCards.forEach(card => {
@@ -678,7 +1025,6 @@
             function toggleTaskDetails(taskCard) {
                 const details = taskCard.querySelector('.task-details');
                 const btn = taskCard.querySelector('.expand-btn');
-                
                 if (!details || !btn) return;
 
                 const isExpanded = details.classList.toggle('expanded');
@@ -690,12 +1036,17 @@
                 }
             }
 
-            function updateTaskStatus(taskCard, newStatus) {
+            /**
+             * Updates a task's status in the UI and triggers a save.
+             * @param {HTMLElement} taskCard - The card element to update.
+             * @param {string} newStatus - The new status ('not-started', 'in-progress', 'completed').
+             * @param {boolean} [doSave=true] - Whether to save the progress after this update.
+             */
+            function updateTaskStatus(taskCard, newStatus, doSave = true) {
                 const statusEl = taskCard.querySelector('.task-status');
-                if (statusEl.dataset.status === newStatus) return; // No change
+                if (!statusEl || statusEl.dataset.status === newStatus) return;
 
                 statusEl.dataset.status = newStatus;
-                
                 const statusMap = {
                     'not-started': 'Not Started',
                     'in-progress': 'In Progress',
@@ -703,10 +1054,12 @@
                 };
                 statusEl.textContent = statusMap[newStatus];
 
-                updateProgress();
+                if (doSave) {
+                    saveProgress();
+                    updateProgress();
+                }
             }
 
-            // Update overall progress bar
             function updateProgress() {
                 const allTasks = document.querySelectorAll('.task-status');
                 if (allTasks.length === 0) return;
@@ -720,7 +1073,6 @@
                 }
             }
             
-            // Scroll-to-top button
             function setupFab() {
                 const fab = document.getElementById('fab');
                 if (fab) {
@@ -730,7 +1082,6 @@
                 }
             }
 
-            // Intersection Observer for scroll animations
             function setupScrollAnimations() {
                 const sections = document.querySelectorAll('.phase-section');
                 const navItems = document.querySelectorAll('.nav-item');
@@ -740,7 +1091,6 @@
                         if (entry.isIntersecting) {
                             entry.target.classList.add('visible');
                             
-                            // Update active nav item on scroll
                             const activeId = entry.target.id;
                             navItems.forEach(item => {
                                 item.classList.toggle('active', item.dataset.phase === activeId);
@@ -748,8 +1098,8 @@
                         }
                     });
                 }, {
-                    threshold: 0.2, // Section is 20% visible
-                    rootMargin: '-50px 0px -50px 0px' // Adjust trigger area
+                    threshold: 0.2,
+                    rootMargin: '-80px 0px -50% 0px'
                 });
                 
                 sections.forEach(section => observer.observe(section));
